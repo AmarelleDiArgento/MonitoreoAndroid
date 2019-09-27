@@ -11,12 +11,13 @@ import com.lotus.monitoreoandroid.Configuracion.Utiles.ActivityTools;
 import com.lotus.monitoreoandroid.Configuracion.Utiles.TableDinamic;
 import com.lotus.monitoreoandroid.Modelo.Tabla.Monitores;
 import com.lotus.monitoreoandroid.R;
+import com.lotus.monitoreoandroid.Vista.Fragmentos.Header;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends ActivityTools {
+public class Main extends ActivityTools {
     SharedPreferences sp = null;
     public String path = null;
     List<Monitores> ml = new ArrayList<>();
@@ -31,11 +32,12 @@ public class MainActivity extends ActivityTools {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.a_main);
 
         sp = getBaseContext().getSharedPreferences("share", MODE_PRIVATE);
         path = getExternalFilesDir(null) + File.separator;
-
+        Header h = new Header();
+        fs(R.id.header, h).commit();
         // createTable();
         createTable();
 

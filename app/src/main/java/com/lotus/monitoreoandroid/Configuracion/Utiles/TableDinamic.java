@@ -122,7 +122,7 @@ public class TableDinamic {
     public void backgroundData(int firt, int second) {
         //for (r = 1; r <= data.size(); r++) {
         //    multicolor = !multicolor;
-        //    for (c = 0; c < header.length; c++) {
+        //    for (c = 0; c < Header.length; c++) {
         //        txtCell = getCell(r, c);
         //        txtCell.setBackgroundColor((multicolor) ? firt : second);
         //    }

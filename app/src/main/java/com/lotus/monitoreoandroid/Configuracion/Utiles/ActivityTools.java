@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import java.io.File;
 
 public abstract class ActivityTools extends AppCompatActivity {
 
+    //final String path = getExternalFilesDir(null) + File.separator;
 
     public Toast Tostada(String mjs) {
         return Toast.makeText(this, mjs, Toast.LENGTH_LONG);
@@ -26,6 +26,7 @@ public abstract class ActivityTools extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = FragmentManager.beginTransaction();
         fragmentTransaction.add(rl, f, null);
         return fragmentTransaction;
+
     }
 
 }
