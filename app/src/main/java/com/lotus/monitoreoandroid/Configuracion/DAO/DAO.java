@@ -1,11 +1,10 @@
-package com.lotus.monitoreoandroid.Modelo;
+package com.lotus.monitoreoandroid.Configuracion.DAO;
 
 import java.sql.ResultSet;
 import java.util.List;
 
 public interface DAO<K,O,S>{
 
-    void getPath(S path);
     String insert(O o) throws Exception;
     String update(O o) throws Exception;
     String delete(K id) throws Exception;

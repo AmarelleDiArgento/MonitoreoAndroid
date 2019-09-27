@@ -2,15 +2,15 @@ package com.lotus.monitoreoandroid.Modelo.Tabla;
 
 import java.io.Serializable;
 
-public class Monitor implements Serializable {
+public class Monitores implements Serializable {
     private Long Id_Monitor;
     private String Codigo_monitor;
     private String Nombre_monitor;
 
-    public Monitor() {
+    public Monitores() {
     }
 
-    public Monitor(Long id_Monitor, String codigo_monitor, String nombre_monitor) {
+    public Monitores(Long id_Monitor, String codigo_monitor, String nombre_monitor) {
         setId_Monitor(id_Monitor);
         setCodigo_monitor(codigo_monitor);
         setNombre_monitor(nombre_monitor);

@@ -3,8 +3,10 @@ package com.lotus.monitoreoandroid.Modelo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lotus.monitoreoandroid.Configuracion.Conexiones.sqlConect;
-import com.lotus.monitoreoandroid.Modelo.Interfaz.Monitores;
-import com.lotus.monitoreoandroid.Modelo.Tabla.Monitor;
+import com.lotus.monitoreoandroid.Configuracion.Utiles.ActivityTools;
+import com.lotus.monitoreoandroid.Configuracion.Utiles.FileAdmin;
+import com.lotus.monitoreoandroid.Modelo.Interfaz.Monitor;
+import com.lotus.monitoreoandroid.Modelo.Tabla.Monitores;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,14 +14,14 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class iMonitor extends sqlConect implements Monitores {
+public class iMonitor extends FileAdmin implements Monitor {
 
 
-    public List<Monitor> ml = new ArrayList<>();
+    public List<Monitores> ml = new ArrayList<>();
     Connection cn = null;
     public String path = "";
 
-    final String nombre = "Monitores";
+    final String nombre = "Monitor";
 
     final String ins = "";
     final String upd = "";
@@ -28,25 +30,20 @@ public class iMonitor extends sqlConect implements Monitores {
     final String all = "SELECT [Id_Monitor]\n" +
             "      ,[Codigo_monitor]\n" +
             "      ,[Nombre_monitor]\n" +
-            "  FROM [Monitoreo].[dbo].[Monitores];";
+            "  FROM [Monitoreo].[dbo].[Monitor];";
 
-    public iMonitor(String path) throws Exception{
-        this.cn = getConexion();
-        getPath(path);
-    }
-
-    @Override
-    public void getPath(String path) {
+    public iMonitor(Connection cn, String path) {
+        this.cn = cn;
         this.path = path;
     }
 
     @Override
-    public String insert(Monitor o) throws Exception {
+    public String insert(Monitores o) throws Exception {
         return null;
     }
 
     @Override
-    public String update(Monitor o) throws Exception {
+    public String update(Monitores o) throws Exception {
         return null;
     }
 
@@ -56,8 +53,8 @@ public class iMonitor extends sqlConect implements Monitores {
     }
 
     @Override
-    public Monitor gift(ResultSet rs) throws Exception {
-        Monitor m = new Monitor();
+    public Monitores gift(ResultSet rs) throws Exception {
+        Monitores m = new Monitores();
         m.setId_Monitor(rs.getLong("Id_Monitor"));
         m.setCodigo_monitor(rs.getString("Codigo_monitor"));
         m.setNombre_monitor(rs.getString("Nombre_monitor"));
@@ -65,14 +62,14 @@ public class iMonitor extends sqlConect implements Monitores {
     }
 
     @Override
-    public Monitor oneId(Long id) throws Exception {
+    public Monitores oneId(Long id) throws Exception {
         return null;
     }
 
     @Override
     public boolean local() throws Exception {
 
-        List<Monitor> mo = new ArrayList<>();
+        List<Monitores> mo = new ArrayList<>();
 
         ResultSet rs;
         PreparedStatement ps = cn.prepareStatement(all);
@@ -81,17 +78,16 @@ public class iMonitor extends sqlConect implements Monitores {
             mo.add(gift(rs));
         }
 
-        closeConexion(cn, rs);
         String contenido = mo.toString();
 
         return CrearArchivo(path, nombre, contenido);
     }
 
     @Override
-    public List<Monitor> all() throws Exception {
+    public List<Monitores> all() throws Exception {
 
         Gson gson = new Gson();
-        ml = gson.fromJson(ObtenerLista(path, nombre), new TypeToken<List<Monitor>>() {
+        ml = gson.fromJson(ObtenerLista(path, nombre), new TypeToken<List<Monitores>>() {
         }.getType());
 
         return ml;
