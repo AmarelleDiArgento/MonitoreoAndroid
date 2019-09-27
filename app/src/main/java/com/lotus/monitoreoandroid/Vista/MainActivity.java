@@ -1,8 +1,5 @@
 package com.lotus.monitoreoandroid.Vista;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;

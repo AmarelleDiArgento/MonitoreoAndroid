@@ -34,8 +34,6 @@ public abstract class sqlConect {
             //Class.forName("net.sourceforge.jtds.jdbc.Driver");
             return DriverManager.getConnection(url, user, pass);
 
-
-
     }
 
     public void closeConexion(Connection con) throws Exception {
