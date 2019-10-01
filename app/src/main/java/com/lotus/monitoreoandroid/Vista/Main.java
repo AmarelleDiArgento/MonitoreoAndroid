@@ -9,7 +9,9 @@ import android.widget.TableRow;
 import com.lotus.monitoreoandroid.Configuracion.DAO.Admin;
 import com.lotus.monitoreoandroid.Configuracion.Utiles.ActivityTools;
 import com.lotus.monitoreoandroid.Configuracion.Utiles.TableDinamic;
+import com.lotus.monitoreoandroid.Modelo.Interfaz.Postcosecha;
 import com.lotus.monitoreoandroid.Modelo.Tabla.Monitores;
+import com.lotus.monitoreoandroid.Modelo.Tabla.Postcosechas;
 import com.lotus.monitoreoandroid.R;
 import com.lotus.monitoreoandroid.Vista.Fragmentos.Header;
 
@@ -25,45 +27,32 @@ public class Main extends ActivityTools {
     // Encabezados de la tabla
     private String[] header = {"ID", "Codigo", "Nombre"};
     TableDinamic tb;
-    TableRow tr;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_main);
-
-        sp = getBaseContext().getSharedPreferences("share", MODE_PRIVATE);
         path = getExternalFilesDir(null) + File.separator;
         Header h = new Header();
         fs(R.id.header, h).commit();
         // createTable();
-        createTable();
-
-    }
-
-    //CREACION DE LA TABLA
-    public void createTable() {
         try {
-            tableLayout = findViewById(R.id.tabla);
-            tb = new TableDinamic(tableLayout, getApplicationContext());
-            tableLayout.removeAllViews();
-            tb.addHeader(header);
-            tb.addData(cargarMonitores());
-            tb.backgroundHeader(
-                    Color.parseColor("#20C0FF")
+            tableLayout = (TableLayout) findViewById(R.id.tabla);
+            createTable(
+                    getApplicationContext(),
+                    tb,
+                    tableLayout,
+                    header,
+                    cargarMonitores(),
+                    "#00B6FF",
+                    "#FFFFFF",
+                    "#BEC0C7"
             );
-            tb.backgroundData(
-                    Color.parseColor("#FFFFFF"),
-                    Color.parseColor("#81F0EDED")
-            );
-
-
         } catch (Exception e) {
-            Tostada("Error de la  table: " + e.toString()).show();
+            Tostada("Error en tabla: " + e).show();
         }
     }
+
 
     public ArrayList<String[]> cargarMonitores() {
 
@@ -71,19 +60,17 @@ public class Main extends ActivityTools {
 
         try {
             rows.clear();
-            final Admin aSql = new Admin(path) ;
+            final Admin aSql = new Admin(path);
 
-            aSql.getMonitor().local();
+            aSql.getPostcosecha().local();
             Tostada("Cargo local").show();
 
-            final List<Monitores> ml = aSql.getMonitor().all();
-            for (final Monitores m : ml) {
-                // {"Finca", "Bloque", "Variedad", "CC", "CT", "S1C", "S1P", "S4C", "S4P
-
+            final List<Postcosechas> pl = aSql.getPostcosecha().all();
+            for (final Postcosechas p : pl) {
                 rows.add(new String[]{
-                        String.valueOf(m.getId_Monitor()),
-                                m.getCodigo_monitor(),
-                                m.getNombre_monitor(),
+                                String.valueOf(p.getCodigo_posco()),
+                                p.getCodigo_posco(),
+                                p.getNombre_posco(),
                         }
                 );
             }

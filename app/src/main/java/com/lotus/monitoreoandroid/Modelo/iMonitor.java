@@ -30,7 +30,7 @@ public class iMonitor extends FileAdmin implements Monitor {
     final String all = "SELECT [Id_Monitor]\n" +
             "      ,[Codigo_monitor]\n" +
             "      ,[Nombre_monitor]\n" +
-            "  FROM [Monitoreo].[dbo].[Monitor];";
+            "  FROM [Monitoreo].[dbo].[Monitores]";
 
     public iMonitor(Connection cn, String path) {
         this.cn = cn;
