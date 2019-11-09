@@ -3,8 +3,10 @@ package com.lotus.monitoreoandroid.Configuracion.Utiles;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Handler;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -12,20 +14,22 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class TableDinamic {
-    public static int id;
-    private TableLayout tableLayout;
+public class TableDinamic {    private TableLayout tableLayout;
     private Context context;
     private String[] header;
     private ArrayList<String[]> data;
     private TableRow tableRow;
     private TextView txtCell;
+    private EditText editCell;
     private int r, c;
-    private int idtabla;
+    private int idtabla, firt, second;
+    private int[] tipo;
+    private boolean multicolor;
 
-    public TableDinamic(TableLayout tableLayout, Context context) {
+    public TableDinamic(TableLayout tableLayout, Context context, String[] tipo) {
         this.tableLayout = tableLayout;
         this.context = context;
+        this.tipo = getType(tipo);
     }
 
     public void addHeader(String[] header) {
@@ -49,6 +53,41 @@ public class TableDinamic {
         txtCell.setTextSize(20);
         txtCell.setHeight(50);
     }
+
+    private void newCell(int tipo) {
+        editCell = new EditText(context);
+        editCell.setInputType(tipo);
+        editCell.setGravity(Gravity.CENTER);
+        editCell.setTextColor(Color.BLACK);
+        editCell.setTextSize(20);
+        editCell.setHeight(50);
+    }
+
+    // final ColorDrawable clr = (ColorDrawable) view.getBackground();
+
+    private int[] getType(String[] type) {
+        int[] ty = new int[type.length];
+        for (int i = 0; i >= type.length; i++) {
+            ty[i] = convertir(type[i]);
+        }
+        return ty;
+    }
+
+    private int convertir(String tipo) {
+        switch (tipo) {
+            case "Numero":
+                return InputType.TYPE_CLASS_NUMBER;
+            case "Texto":
+                return InputType.TYPE_CLASS_TEXT;
+            case "Multilinea":
+                return InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE;
+            default:
+                return InputType.TYPE_NULL;
+        }
+    }
+
+
+
 
     private TableRow.LayoutParams newLayoutParams() {
         TableRow.LayoutParams params = new TableRow.LayoutParams();
@@ -86,7 +125,7 @@ public class TableDinamic {
                     tableRow.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(final View view) {
-                            id = view.getId();
+                            int id = view.getId();
                             setIdTabla(id);
                             Toast.makeText(context,"click "+id,Toast.LENGTH_SHORT).show();
                             view.setBackgroundColor(Color.parseColor("#FCC9D6"));

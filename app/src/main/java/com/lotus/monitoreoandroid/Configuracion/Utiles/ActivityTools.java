@@ -41,8 +41,8 @@ public abstract class ActivityTools extends AppCompatActivity {
 
     //CREACION DE LA TABLA
     public void createTable(Context context, TableDinamic tb, TableLayout tableLayout, String[] header, ArrayList<String[]> data, String ColorHead, String ColorGrid1, String ColorGrid2) throws Exception {
-
-        tb = new TableDinamic(tableLayout, context);
+        String[] tipos = {"Numero","Numero","Texto"};
+        tb = new TableDinamic(tableLayout, context, tipos);
         tableLayout.removeAllViews();
         tb.addHeader(header);
         tb.addData(data);
